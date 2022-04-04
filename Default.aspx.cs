@@ -12,7 +12,7 @@ namespace WebApplicationEjercicio8E
     {
         List<Alumno> alumnos = new List<Alumno>();
         static List<Inscripciones> inscripciones = new List<Inscripciones>();
-
+        
         private void LeerAlumnos()
         {
             string fileName = Server.MapPath("~/Archivos/Alumnos.txt"); 
@@ -36,6 +36,11 @@ namespace WebApplicationEjercicio8E
         }
         protected void Page_Load(object sender, EventArgs e)        
         {
+            //Postback: cuando se carga la primera vez no es postback
+            // todas las demás veces que se vuelve a cargar si es postback
+
+            //El if controla que cargue los datos solo la primera vez que 
+            //no es postback, las demás se la salta.
             if (!IsPostBack)
             {
                 LeerAlumnos();
@@ -70,6 +75,8 @@ namespace WebApplicationEjercicio8E
         {
             Inscripciones inscripcion = new Inscripciones();
 
+            //Del dropdownlist vamos a seleccionar el selectedvalue
+            //para que guarde el carné no el nombre que está mostrando
             inscripcion.carne = DropDownList1.SelectedValue;
             inscripcion.grado = Convert.ToInt16(TextBox1.Text);
             inscripcion.fecha = DateTime.Now;
